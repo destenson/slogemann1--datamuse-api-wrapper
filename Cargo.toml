@@ -2,7 +2,7 @@
 name = "datamuse-api-wrapper"
 version = "0.2.0"
 authors = ["slogemann1 <sllogemann1@gmail.com>"]
-edition = "2018"
+edition = "2021"
 description = "A wrapper library for the Datamuse api"
 license = "MIT"
 repository = "https://github.com/slogemann1/datamuse-api-wrapper"
