@@ -85,6 +85,12 @@ pub struct DatamuseClient {
     client: reqwest::Client,
 }
 
+impl Default for DatamuseClient {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl DatamuseClient {
     /// Returns a new DatamuseClient struct
     pub fn new() -> Self {
@@ -96,11 +102,11 @@ impl DatamuseClient {
     /// Returns a new [RequestBuilder](request::RequestBuilder) struct with which requests can be created
     /// and later sent. As parameters the vocabulary set and endpoint of the request are required. See
     /// their individual documentations for more information
-    pub fn new_query<'a>(
-        &'a self,
+    pub fn new_query(
+        &self,
         vocabulary: Vocabulary,
         endpoint: EndPoint,
-    ) -> RequestBuilder<'a> {
+    ) -> RequestBuilder {
         RequestBuilder::new(self, vocabulary, endpoint)
     }
 }

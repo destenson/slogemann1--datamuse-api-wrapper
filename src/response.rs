@@ -127,7 +127,7 @@ fn word_obj_to_word_elem(word_obj: DatamuseWordObject) -> WordElement {
                     }
                 }
                 "pron" => {
-                    if let None = pronunciation {
+                    if pronunciation.is_none() {
                         //If pronunciation already has a value ignore b/c of ipa
                         if parts.len() == 2 {
                             pronunciation = Some(parts[1].to_string());
@@ -139,7 +139,7 @@ fn word_obj_to_word_elem(word_obj: DatamuseWordObject) -> WordElement {
                         pronunciation = Some(parts[1].to_string());
                     }
                 }
-                val => match PartOfSpeech::from_str(&val) {
+                val => match PartOfSpeech::from_str(val) {
                     Some(val) => parts_of_speech.push(val),
                     None => continue,
                 },
@@ -148,7 +148,7 @@ fn word_obj_to_word_elem(word_obj: DatamuseWordObject) -> WordElement {
     }
 
     let pos;
-    if parts_of_speech.len() > 0 {
+    if !parts_of_speech.is_empty() {
         pos = Some(parts_of_speech);
     } else {
         pos = None;
@@ -157,14 +157,14 @@ fn word_obj_to_word_elem(word_obj: DatamuseWordObject) -> WordElement {
 
     let mut definitions = None;
     if let Some(defs) = word_obj.defs {
-        if defs.len() > 0 {
+        if !defs.is_empty() {
             let mut def_list: Vec<Definition> = Vec::new();
 
             for def in defs {
                 let parts: Vec<&str> = def.split('\t').collect();
 
                 if parts.len() == 2 {
-                    let pos = PartOfSpeech::from_str(&parts[0]);
+                    let pos = PartOfSpeech::from_str(parts[0]);
                     def_list.push(Definition {
                         part_of_speech: pos,
                         definition: parts[1].to_string(),

@@ -1,6 +1,5 @@
 use crate::response::{Response, WordElement};
 use crate::{DatamuseClient, Error, Result};
-use reqwest;
 use std::fmt::{self, Display, Formatter};
 
 /// Use this struct to build requests to send to the Datamuse api.
@@ -236,11 +235,11 @@ impl<'a> RequestBuilder<'a> {
         let mut params_list: Vec<(String, String)> = Vec::new();
         let mut parameters = self.parameters.clone();
 
-        if self.topics.len() > 0 {
+        if !self.topics.is_empty() {
             parameters.push(Parameter::Topics(self.topics.clone()));
         }
 
-        if self.meta_data_flags.len() > 0 {
+        if !self.meta_data_flags.is_empty() {
             parameters.push(Parameter::MetaData(self.meta_data_flags.clone()));
 
             for flag in self.meta_data_flags.clone() {
